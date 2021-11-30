@@ -548,7 +548,7 @@ class App extends React.Component {
         show={this.state.showAlert}
         onClose={() => this.setState({ showAlert: false })}
       >
-        Copied to clipboard!
+        Copied link to clipboard!
       </Alert>
     );
   };
