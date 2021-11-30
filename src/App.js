@@ -530,7 +530,11 @@ class App extends React.Component {
 
   copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
-    this.setState({ showAlert: true });
+    this.setState({ showAlert: true }, () =>
+      setTimeout(() => {
+        this.setState({ showAlert: false });
+      }, 3000)
+    );
   };
 
   shareBtn = () => {
@@ -542,8 +546,8 @@ class App extends React.Component {
   alert = () => {
     return (
       <Alert
+        className="alert"
         dismissible
-        variant="info"
         transition
         show={this.state.showAlert}
         onClose={() => this.setState({ showAlert: false })}
