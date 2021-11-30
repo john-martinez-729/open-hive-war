@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/open-hive-war/static/css/main.7baa2741.chunk.css",
-    "main.js": "/open-hive-war/static/js/main.1586e5f8.chunk.js",
-    "main.js.map": "/open-hive-war/static/js/main.1586e5f8.chunk.js.map",
+    "main.js": "/open-hive-war/static/js/main.2daf9716.chunk.js",
+    "main.js.map": "/open-hive-war/static/js/main.2daf9716.chunk.js.map",
     "runtime-main.js": "/open-hive-war/static/js/runtime-main.9698062b.js",
     "runtime-main.js.map": "/open-hive-war/static/js/runtime-main.9698062b.js.map",
     "static/css/2.4659568d.chunk.css": "/open-hive-war/static/css/2.4659568d.chunk.css",
@@ -71,6 +71,6 @@
     "static/css/2.4659568d.chunk.css",
     "static/js/2.c7d47edb.chunk.js",
     "static/css/main.7baa2741.chunk.css",
-    "static/js/main.1586e5f8.chunk.js"
+    "static/js/main.2daf9716.chunk.js"
   ]
 }
