@@ -14,7 +14,11 @@ import * as PERILS from "./cards/perils";
 import * as OBJECTIVES from "./cards/objectives";
 import * as LOOT from "./cards/loot";
 import * as INSTRUCTIONS from "./cards/instructions";
-import { AiOutlineShareAlt } from "react-icons/ai";
+import {
+  AiOutlineShareAlt,
+  AiOutlineEyeInvisible,
+  AiOutlineEye,
+} from "react-icons/ai";
 import "./App.css";
 
 const deploymentOptions = [
@@ -222,7 +226,7 @@ class App extends React.Component {
             className="show-btn"
             onClick={this.toggleShowInstructions}
           >
-            {showInstructions ? "Hide" : "Show"}
+            {showInstructions ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
           </Button>
         </h3>
 
@@ -464,14 +468,14 @@ class App extends React.Component {
     return <Image className="card" src={card} />;
   };
 
-  name = () => {
+  footer = () => {
     return (
       <div className="footer">
-        Developed by{" "}
+        Created by{" "}
         <a target="_blank" href="https://www.instagram.com/buttcheeksio/?hl=en">
           John Martinez
         </a>
-        {", "} cards designed by TopsyKretts.
+        {", "} cards by TopsyKretts
       </div>
     );
   };
@@ -559,7 +563,9 @@ class App extends React.Component {
 
   shareBtn = () => {
     return (
-      <AiOutlineShareAlt className="share-btn" onClick={this.copyToClipboard} />
+      <Button className="share-btn" onClick={this.copyToClipboard}>
+        <AiOutlineShareAlt />
+      </Button>
     );
   };
 
@@ -600,7 +606,7 @@ class App extends React.Component {
           {this.lootA()}
           {this.lootB()}
         </Row>
-        {this.name()}
+        {this.footer()}
       </div>
     );
   }

@@ -160,6 +160,7 @@
   background-color: #363945;
   text-align: center;
   z-index: 2;
+  font-size: 13px;
 }
 
 .dropdown {
@@ -175,13 +176,16 @@
   position: fixed;
   right: 4px;
   top: 4px;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  z-index: 3;
   font-size: 24px;
-  cursor: pointer;
-  background-color: #363945;
-}
-
-.share-btn:hover {
-  box-shadow: 2px 2px 2px black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .alert {
@@ -198,10 +202,20 @@
   padding: 0;
   margin: 0;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .show-btn {
-  width: 55px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  margin-left: 8px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 600px) {
@@ -227,5 +241,6 @@
 
   .instructions-h3 {
     text-align: center;
+    justify-content: center;
   }
 }
