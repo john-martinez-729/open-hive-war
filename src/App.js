@@ -94,6 +94,7 @@ class App extends React.Component {
       lootAHidden: true,
       lootBHidden: true,
       showAlert: false,
+      showInstructions: true,
     };
   }
 
@@ -204,10 +205,28 @@ class App extends React.Component {
     });
   };
 
+  toggleShowInstructions = () => {
+    this.setState({
+      showInstructions: !this.state.showInstructions,
+    });
+  };
+
   instructions = () => {
+    const { showInstructions } = this.state;
     return (
       <Row className="card-row">
-        <div className="card-col">
+        <h3 className="instructions-h3">
+          Instructions{" "}
+          <Button
+            size="sm"
+            className="show-btn"
+            onClick={this.toggleShowInstructions}
+          >
+            {showInstructions ? "Hide" : "Show"}
+          </Button>
+        </h3>
+
+        <div className="card-col" id={showInstructions ? "" : "hidden"}>
           <div className="card-box">
             <Image
               className="card"
@@ -217,7 +236,7 @@ class App extends React.Component {
           </div>
         </div>
 
-        <div className="card-col">
+        <div className="card-col" id={showInstructions ? "" : "hidden"}>
           <div className="card-box">
             <Image
               className="card"
@@ -227,7 +246,7 @@ class App extends React.Component {
           </div>
         </div>
 
-        <div className="card-col">
+        <div className="card-col" id={showInstructions ? "" : "hidden"}>
           <div className="card-box">
             <Image
               className="card"
@@ -450,8 +469,9 @@ class App extends React.Component {
       <div className="footer">
         Developed by{" "}
         <a target="_blank" href="https://www.instagram.com/buttcheeksio/?hl=en">
-          buttcheeksio
+          John Martinez
         </a>
+        {", "} cards designed by TopsyKretts.
       </div>
     );
   };

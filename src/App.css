@@ -126,6 +126,10 @@
   margin-right: 16px;
 }
 
+.card-col#hidden {
+  display: none;
+}
+
 .card#instruction {
   border: 4px solid grey;
 }
@@ -190,6 +194,16 @@
   z-index: 2;
 }
 
+.instructions-h3 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.show-btn {
+  width: 55px;
+}
+
 @media only screen and (max-width: 600px) {
   .title {
     text-align: center;
@@ -209,5 +223,9 @@
 
   .card-row {
     justify-content: center;
+  }
+
+  .instructions-h3 {
+    text-align: center;
   }
 }
