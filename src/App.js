@@ -103,14 +103,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (window.location.search) {
+    if (window.location.search && window.location.search.includes("mission")) {
+      // if search exists and includes mission, perform loadFromUrl
       this.loadFromUrl();
     }
   }
 
   loadFromUrl = () => {
+    // loads mission from the url
     const search = window.location.search;
-    const splitQuestionMark = search.split("?");
+    const splitQuestionMark = search.split("?mission=");
     const splitDashes = splitQuestionMark[1].split("-");
 
     this.setState({
@@ -141,7 +143,7 @@ class App extends React.Component {
         window.history.pushState(
           "",
           "Open Hive War",
-          `/open-hive-war?${this.state.deployment}-${this.state.perils}-${this.state.objective}-${this.state.lootA}-${this.state.lootB}`
+          `/open-hive-war?mission=${this.state.deployment}-${this.state.perils}-${this.state.objective}-${this.state.lootA}-${this.state.lootB}`
         )
     );
   };
@@ -157,7 +159,7 @@ class App extends React.Component {
 
   setNewSearch = (cardType, value) => {
     let search = window.location.search;
-    const splitQuestionMark = search.split("?");
+    const splitQuestionMark = search.split("?mission=");
     let splitDashes = splitQuestionMark[1].split("-");
     if (cardType == "deployment") {
       splitDashes[0] = value;
@@ -174,11 +176,12 @@ class App extends React.Component {
     window.history.pushState(
       "",
       "Open Hive War",
-      `/open-hive-war?${splitDashes[0]}-${splitDashes[1]}-${splitDashes[2]}-${splitDashes[3]}-${splitDashes[4]}`
+      `/open-hive-war?mission=${splitDashes[0]}-${splitDashes[1]}-${splitDashes[2]}-${splitDashes[3]}-${splitDashes[4]}`
     );
   };
 
   randomCard = (cardType) => {
+    // generate a randomCard
     const value = this.randNumb();
     this.setState(
       {
@@ -189,6 +192,7 @@ class App extends React.Component {
   };
 
   reveal = (cardToReveal) => {
+    // reveals a hidden card, typically used for loot
     if (cardToReveal == "lootA") {
       this.setState({
         lootAHidden: false,
@@ -203,6 +207,7 @@ class App extends React.Component {
   };
 
   hide = () => {
+    // hides both loot cards
     this.setState({
       lootAHidden: true,
       lootBHidden: true,
@@ -210,12 +215,49 @@ class App extends React.Component {
   };
 
   toggleShowInstructions = () => {
+    // toggle showing the instructions
     this.setState({
       showInstructions: !this.state.showInstructions,
     });
   };
 
+  showModal = (cardType) => {
+    // reveal the modal
+    this.setState({
+      modal: {
+        ...this.state.modal,
+        visible: true,
+        cardType: cardType,
+      },
+    });
+  };
+
+  hideModal = () => {
+    // hide the modal
+    this.setState({
+      modal: {
+        ...this.state.modal,
+        visible: false,
+        cardType: "",
+      },
+    });
+  };
+
+  copyToClipboard = () => {
+    // copies to clipboard, triggering the alert. It then cancels the alert after some time
+    navigator.clipboard.writeText(window.location.href);
+    this.setState({ showAlert: true }, () =>
+      setTimeout(() => {
+        this.setState({ showAlert: false });
+      }, 3000)
+    );
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+
   instructions = () => {
+    // render the instructions
     const { showInstructions } = this.state;
     return (
       <Row className="card-row">
@@ -264,6 +306,7 @@ class App extends React.Component {
   };
 
   objective = () => {
+    // render the objective
     if (!this.state.objective) return;
     const card = `card${this.state.objective}`;
     return (
@@ -297,6 +340,7 @@ class App extends React.Component {
   };
 
   deployment = () => {
+    // render the deployment
     if (!this.state.deployment) return;
     const card = `card${this.state.deployment}`;
     return (
@@ -330,6 +374,7 @@ class App extends React.Component {
   };
 
   perils = () => {
+    // render the perils
     if (!this.state.perils) return;
     const card = `card${this.state.perils}`;
     return (
@@ -359,6 +404,7 @@ class App extends React.Component {
   };
 
   lootA = () => {
+    // render lootA
     if (!this.state.lootA) return;
     const card = `card${this.state.lootA}`;
 
@@ -412,6 +458,7 @@ class App extends React.Component {
   };
 
   lootB = () => {
+    // render lootB
     if (!this.state.lootB) return;
     const card = `card${this.state.lootB}`;
 
@@ -464,11 +511,8 @@ class App extends React.Component {
     }
   };
 
-  renderCard = (card) => {
-    return <Image className="card" src={card} />;
-  };
-
   footer = () => {
+    // renders the Footer
     return (
       <div className="footer">
         Created by{" "}
@@ -480,27 +524,8 @@ class App extends React.Component {
     );
   };
 
-  showModal = (cardType) => {
-    this.setState({
-      modal: {
-        ...this.state.modal,
-        visible: true,
-        cardType: cardType,
-      },
-    });
-  };
-
-  hideModal = () => {
-    this.setState({
-      modal: {
-        ...this.state.modal,
-        visible: false,
-        cardType: "",
-      },
-    });
-  };
-
   modal = () => {
+    // renders the modal, typically used for selecting cards
     const { visible, cardType } = this.state.modal;
     let title;
     let options = [];
@@ -538,6 +563,7 @@ class App extends React.Component {
   };
 
   renderOptionSelect = (item, i) => {
+    // render options for the card selector
     const { cardType } = this.state.modal;
     const selected = this.state[cardType] == i + 1 ? true : false;
     return (
@@ -552,16 +578,8 @@ class App extends React.Component {
     );
   };
 
-  copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href);
-    this.setState({ showAlert: true }, () =>
-      setTimeout(() => {
-        this.setState({ showAlert: false });
-      }, 3000)
-    );
-  };
-
   shareBtn = () => {
+    // renders the sharebtn
     return (
       <Button className="share-btn" onClick={this.copyToClipboard}>
         <AiOutlineShareAlt />
@@ -570,6 +588,7 @@ class App extends React.Component {
   };
 
   alert = () => {
+    // renders the alert
     return (
       <Alert
         className="alert"
