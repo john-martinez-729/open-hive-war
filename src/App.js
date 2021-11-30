@@ -1,11 +1,20 @@
 import React from "react";
-import { Row, Col, Button, Image, FormControl, Modal } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Image,
+  FormControl,
+  Modal,
+  Alert,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as DEPLOYMENT from "./cards/deployment";
 import * as PERILS from "./cards/perils";
 import * as OBJECTIVES from "./cards/objectives";
 import * as LOOT from "./cards/loot";
 import * as INSTRUCTIONS from "./cards/instructions";
+import { AiOutlineShareAlt } from "react-icons/ai";
 import "./App.css";
 
 const deploymentOptions = [
@@ -84,8 +93,29 @@ class App extends React.Component {
       },
       lootAHidden: true,
       lootBHidden: true,
+      showAlert: false,
     };
   }
+
+  componentDidMount() {
+    if (window.location.search) {
+      this.loadFromUrl();
+    }
+  }
+
+  loadFromUrl = () => {
+    const search = window.location.search;
+    const splitQuestionMark = search.split("?");
+    const splitDashes = splitQuestionMark[1].split("-");
+
+    this.setState({
+      deployment: splitDashes[0],
+      perils: splitDashes[1],
+      objective: splitDashes[2],
+      lootA: splitDashes[3],
+      lootB: splitDashes[4],
+    });
+  };
 
   randNumb = () => {
     // chooses number randomly between 1 and 12
@@ -93,7 +123,7 @@ class App extends React.Component {
   };
 
   generate = () => {
-    // chooses numbers randomly (1 -> 12) and displays them. Players can then mulligan.
+    // chooses numbers randomly (1 -> 12) and displays them. Players can then randomCard.
     this.setState(
       {
         deployment: this.randNumb(),
@@ -102,13 +132,75 @@ class App extends React.Component {
         lootA: this.randNumb(),
         lootB: this.randNumb(),
       },
-      () => console.log(this.state)
+      () =>
+        window.history.pushState(
+          "",
+          "Open Hive War",
+          `/open-hive-war?${this.state.deployment}-${this.state.perils}-${this.state.objective}-${this.state.lootA}-${this.state.lootB}`
+        )
     );
   };
 
-  mulligan = (cardType) => {
+  selectCard = (cardType, value) => {
+    this.setState(
+      {
+        [cardType]: value,
+      },
+      () => this.setNewSearch(cardType, value)
+    );
+  };
+
+  setNewSearch = (cardType, value) => {
+    let search = window.location.search;
+    const splitQuestionMark = search.split("?");
+    let splitDashes = splitQuestionMark[1].split("-");
+    if (cardType == "deployment") {
+      splitDashes[0] = value;
+    } else if (cardType == "perils") {
+      splitDashes[1] = value;
+    } else if (cardType == "objective") {
+      splitDashes[2] = value;
+    } else if (cardType == "lootA") {
+      splitDashes[3] = value;
+    } else if (cardType == "lootB") {
+      splitDashes[4] = value;
+    }
+
+    window.history.pushState(
+      "",
+      "Open Hive War",
+      `/open-hive-war?${splitDashes[0]}-${splitDashes[1]}-${splitDashes[2]}-${splitDashes[3]}-${splitDashes[4]}`
+    );
+  };
+
+  randomCard = (cardType) => {
+    const value = this.randNumb();
+    this.setState(
+      {
+        [cardType]: value,
+      },
+      () => this.setNewSearch(cardType, value)
+    );
+  };
+
+  reveal = (cardToReveal) => {
+    if (cardToReveal == "lootA") {
+      this.setState({
+        lootAHidden: false,
+        lootBHidden: true,
+      });
+    } else {
+      this.setState({
+        lootAHidden: true,
+        lootBHidden: false,
+      });
+    }
+  };
+
+  hide = () => {
     this.setState({
-      [cardType]: this.randNumb(),
+      lootAHidden: true,
+      lootBHidden: true,
     });
   };
 
@@ -157,7 +249,7 @@ class App extends React.Component {
         <div className="card-box">
           <div className="overlay" id="objective">
             <Button
-              onClick={() => this.mulligan("objective")}
+              onClick={() => this.randomCard("objective")}
               className="overlay-btn"
               size="sm"
             >
@@ -190,7 +282,7 @@ class App extends React.Component {
         <div className="card-box">
           <div className="overlay" id="deployment">
             <Button
-              onClick={() => this.mulligan("deployment")}
+              onClick={() => this.randomCard("deployment")}
               className="overlay-btn"
               size="sm"
             >
@@ -223,7 +315,7 @@ class App extends React.Component {
         <div className="card-box">
           <div className="overlay" id="perils">
             <Button
-              onClick={() => this.mulligan("perils")}
+              onClick={() => this.randomCard("perils")}
               className="overlay-btn"
               size="sm"
             >
@@ -241,27 +333,6 @@ class App extends React.Component {
         </div>
       </div>
     );
-  };
-
-  reveal = (cardToReveal) => {
-    if (cardToReveal == "lootA") {
-      this.setState({
-        lootAHidden: false,
-        lootBHidden: true,
-      });
-    } else {
-      this.setState({
-        lootAHidden: true,
-        lootBHidden: false,
-      });
-    }
-  };
-
-  hide = () => {
-    this.setState({
-      lootAHidden: true,
-      lootBHidden: true,
-    });
   };
 
   lootA = () => {
@@ -293,7 +364,7 @@ class App extends React.Component {
           <div className="card-box">
             <div className="overlay" id="loot">
               <Button
-                onClick={() => this.mulligan("lootA")}
+                onClick={() => this.randomCard("lootA")}
                 className="overlay-btn"
                 size="sm"
               >
@@ -346,7 +417,7 @@ class App extends React.Component {
           <div className="card-box">
             <div className="overlay" id="loot">
               <Button
-                onClick={() => this.mulligan("lootB")}
+                onClick={() => this.randomCard("lootB")}
                 className="overlay-btn"
                 size="sm"
               >
@@ -442,12 +513,6 @@ class App extends React.Component {
     );
   };
 
-  selectCard = (cardType, value) => {
-    this.setState({
-      [cardType]: value,
-    });
-  };
-
   renderOptionSelect = (item, i) => {
     const { cardType } = this.state.modal;
     const selected = this.state[cardType] == i + 1 ? true : false;
@@ -463,9 +528,36 @@ class App extends React.Component {
     );
   };
 
+  copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    this.setState({ showAlert: true });
+  };
+
+  shareBtn = () => {
+    return (
+      <AiOutlineShareAlt className="share-btn" onClick={this.copyToClipboard} />
+    );
+  };
+
+  alert = () => {
+    return (
+      <Alert
+        dismissible
+        variant="info"
+        transition
+        show={this.state.showAlert}
+        onClose={() => this.setState({ showAlert: false })}
+      >
+        Copied to clipboard!
+      </Alert>
+    );
+  };
+
   render() {
     return (
       <div className="App">
+        {this.alert()}
+        {this.shareBtn()}
         {this.modal()}
         <h1 className="title">Open Hive War Mission Generator</h1>
         <Row className="gen-btn-row">

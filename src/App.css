@@ -167,6 +167,19 @@
   width: 300px;
 }
 
+.share-btn {
+  position: fixed;
+  right: 4px;
+  top: 4px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #363945;
+}
+
+.share-btn:hover {
+  box-shadow: 2px 2px 2px black;
+}
+
 @media only screen and (max-width: 600px) {
   .title {
     text-align: center;
