@@ -82,6 +82,8 @@ class App extends React.Component {
         visible: false,
         cardType: "",
       },
+      lootAHidden: true,
+      lootBHidden: true,
     };
   }
 
@@ -241,62 +243,131 @@ class App extends React.Component {
     );
   };
 
+  reveal = (cardToReveal) => {
+    if (cardToReveal == "lootA") {
+      this.setState({
+        lootAHidden: false,
+        lootBHidden: true,
+      });
+    } else {
+      this.setState({
+        lootAHidden: true,
+        lootBHidden: false,
+      });
+    }
+  };
+
+  hide = () => {
+    this.setState({
+      lootAHidden: true,
+      lootBHidden: true,
+    });
+  };
+
   lootA = () => {
     if (!this.state.lootA) return;
     const card = `card${this.state.lootA}`;
-    return (
-      <div className="card-col">
-        <h3>Loot A</h3>
-        <div className="card-box">
-          <div className="overlay" id="loot">
-            <Button
-              onClick={() => this.mulligan("lootA")}
-              className="overlay-btn"
-              size="sm"
-            >
-              Random
-            </Button>
-            <Button
-              className="overlay-btn"
-              size="sm"
-              onClick={() => this.showModal("lootA")}
-            >
-              Choose
-            </Button>
+
+    if (this.state.lootAHidden) {
+      return (
+        <div className="card-col">
+          <h3>Player 1's Loot</h3>
+          <div className="card-box">
+            <div className="hidden-card" id="loot">
+              <Button
+                onClick={() => this.reveal("lootA")}
+                className="overlay-btn"
+                size="sm"
+              >
+                Reveal
+              </Button>
+            </div>
+            <div className="card" id="loot" />
           </div>
-          <Image className="card" id="loot" src={LOOT.default[card]} />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="card-col">
+          <h3>Player 1's Loot</h3>
+          <div className="card-box">
+            <div className="overlay" id="loot">
+              <Button
+                onClick={() => this.mulligan("lootA")}
+                className="overlay-btn"
+                size="sm"
+              >
+                Random
+              </Button>
+              <Button
+                className="overlay-btn"
+                size="sm"
+                onClick={() => this.showModal("lootA")}
+              >
+                Choose
+              </Button>
+              <Button onClick={this.hide} className="overlay-btn" size="sm">
+                Hide
+              </Button>
+            </div>
+            <Image className="card" id="loot" src={LOOT.default[card]} />
+          </div>
+        </div>
+      );
+    }
   };
 
   lootB = () => {
     if (!this.state.lootB) return;
     const card = `card${this.state.lootB}`;
-    return (
-      <div className="card-col">
-        <h3>Loot B</h3>
-        <div className="card-box">
-          <div className="overlay" id="loot">
-            <Button
-              onClick={() => this.mulligan("lootB")}
-              className="overlay-btn"
-              size="sm"
-            >
-              Random
-            </Button>
-            <Button
-              className="overlay-btn"
-              size="sm"
-              onClick={() => this.showModal("lootB")}
-            >
-              Choose
-            </Button>
+
+    if (this.state.lootBHidden) {
+      return (
+        <div className="card-col">
+          <h3>Player 2's Loot</h3>
+          <div className="card-box">
+            <div className="hidden-card" id="loot">
+              <Button
+                onClick={() => this.reveal("lootB")}
+                className="overlay-btn"
+                size="sm"
+              >
+                Reveal
+              </Button>
+            </div>
+            <div className="card" id="loot" />
           </div>
-          <Image className="card" id="loot" src={LOOT.default[card]} />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="card-col">
+          <h3>Player 2's Loot</h3>
+          <div className="card-box">
+            <div className="overlay" id="loot">
+              <Button
+                onClick={() => this.mulligan("lootB")}
+                className="overlay-btn"
+                size="sm"
+              >
+                Random
+              </Button>
+              <Button
+                className="overlay-btn"
+                size="sm"
+                onClick={() => this.showModal("lootB")}
+              >
+                Choose
+              </Button>
+              <Button onClick={this.hide} className="overlay-btn" size="sm">
+                Hide
+              </Button>
+            </div>
+            <Image className="card" id="loot" src={LOOT.default[card]} />
+          </div>
+        </div>
+      );
+    }
   };
 
   renderCard = (card) => {
@@ -396,9 +467,9 @@ class App extends React.Component {
     return (
       <div className="App">
         {this.modal()}
-        <h1 className="title">Necromunda Mission Generator</h1>
+        <h1 className="title">Open Hive War Mission Generator</h1>
         <Row className="gen-btn-row">
-          <Button style={{ width: "200px" }} onClick={this.generate}>
+          <Button className="gen-btn" onClick={this.generate}>
             Generate Mission
           </Button>
         </Row>
@@ -408,6 +479,8 @@ class App extends React.Component {
           {this.deployment()}
           {this.objective()}
           {this.perils()}
+        </Row>
+        <Row className="card-row">
           {this.lootA()}
           {this.lootB()}
         </Row>
