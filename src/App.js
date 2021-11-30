@@ -138,6 +138,8 @@ class App extends React.Component {
         objective: this.randNumb(),
         lootA: this.randNumb(),
         lootB: this.randNumb(),
+        lootAHidden: true,
+        lootBHidden: true,
       },
       () =>
         window.history.pushState(
