@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/open-hive-war/static/css/main.b3236d8d.chunk.css",
-    "main.js": "/open-hive-war/static/js/main.9a18a340.chunk.js",
-    "main.js.map": "/open-hive-war/static/js/main.9a18a340.chunk.js.map",
-    "runtime-main.js": "/open-hive-war/static/js/runtime-main.26bfa0fa.js",
-    "runtime-main.js.map": "/open-hive-war/static/js/runtime-main.26bfa0fa.js.map",
+    "main.css": "/open-hive-war/static/css/main.f2a05a30.chunk.css",
+    "main.js": "/open-hive-war/static/js/main.35092f57.chunk.js",
+    "main.js.map": "/open-hive-war/static/js/main.35092f57.chunk.js.map",
+    "runtime-main.js": "/open-hive-war/static/js/runtime-main.e4911480.js",
+    "runtime-main.js.map": "/open-hive-war/static/js/runtime-main.e4911480.js.map",
     "static/css/2.4659568d.chunk.css": "/open-hive-war/static/css/2.4659568d.chunk.css",
-    "static/js/2.a29155ef.chunk.js": "/open-hive-war/static/js/2.a29155ef.chunk.js",
-    "static/js/2.a29155ef.chunk.js.map": "/open-hive-war/static/js/2.a29155ef.chunk.js.map",
-    "static/js/3.a9ca285f.chunk.js": "/open-hive-war/static/js/3.a9ca285f.chunk.js",
-    "static/js/3.a9ca285f.chunk.js.map": "/open-hive-war/static/js/3.a9ca285f.chunk.js.map",
+    "static/js/2.205da586.chunk.js": "/open-hive-war/static/js/2.205da586.chunk.js",
+    "static/js/2.205da586.chunk.js.map": "/open-hive-war/static/js/2.205da586.chunk.js.map",
+    "static/js/3.155463bb.chunk.js": "/open-hive-war/static/js/3.155463bb.chunk.js",
+    "static/js/3.155463bb.chunk.js.map": "/open-hive-war/static/js/3.155463bb.chunk.js.map",
     "index.html": "/open-hive-war/index.html",
     "static/css/2.4659568d.chunk.css.map": "/open-hive-war/static/css/2.4659568d.chunk.css.map",
-    "static/css/main.b3236d8d.chunk.css.map": "/open-hive-war/static/css/main.b3236d8d.chunk.css.map",
-    "static/js/2.a29155ef.chunk.js.LICENSE.txt": "/open-hive-war/static/js/2.a29155ef.chunk.js.LICENSE.txt",
+    "static/css/main.f2a05a30.chunk.css.map": "/open-hive-war/static/css/main.f2a05a30.chunk.css.map",
+    "static/js/2.205da586.chunk.js.LICENSE.txt": "/open-hive-war/static/js/2.205da586.chunk.js.LICENSE.txt",
     "static/media/1.26ae2351.jpg": "/open-hive-war/static/media/1.26ae2351.jpg",
     "static/media/1.747602ce.jpg": "/open-hive-war/static/media/1.747602ce.jpg",
     "static/media/1.ea2580d1.jpg": "/open-hive-war/static/media/1.ea2580d1.jpg",
@@ -67,10 +67,10 @@
     "static/media/9.b61b0721.jpg": "/open-hive-war/static/media/9.b61b0721.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.26bfa0fa.js",
+    "static/js/runtime-main.e4911480.js",
     "static/css/2.4659568d.chunk.css",
-    "static/js/2.a29155ef.chunk.js",
-    "static/css/main.b3236d8d.chunk.css",
-    "static/js/main.9a18a340.chunk.js"
+    "static/js/2.205da586.chunk.js",
+    "static/css/main.f2a05a30.chunk.css",
+    "static/js/main.35092f57.chunk.js"
   ]
 }
