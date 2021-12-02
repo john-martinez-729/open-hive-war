@@ -5,6 +5,10 @@
   color: #edf1ff;
 }
 
+body {
+  background-color: #363945 !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 6px;

@@ -129,7 +129,7 @@ class App extends React.Component {
     return Math.floor(Math.random() * 12) + 1;
   };
 
-  generate = () => {
+  generateMission = () => {
     // chooses numbers randomly (1 -> 12) and displays them. Players can then randomCard.
     this.setState(
       {
@@ -183,7 +183,7 @@ class App extends React.Component {
   };
 
   randomCard = (cardType) => {
-    // generate a randomCard
+    // generateMission a randomCard
     const value = this.randNumb();
     this.setState(
       {
@@ -612,7 +612,7 @@ class App extends React.Component {
         {this.modal()}
         <h1 className="title">Open Hive War Mission Generator</h1>
         <Row className="gen-btn-row">
-          <Button className="gen-btn" onClick={this.generate}>
+          <Button className="gen-btn" onClick={this.generateMission}>
             Generate Mission
           </Button>
         </Row>
