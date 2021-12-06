@@ -518,10 +518,7 @@ class App extends React.Component {
     return (
       <div className="footer">
         Created by{" "}
-        <a
-          target="_blank"
-          href="https://john-martinez-729.github.io/personal-site/"
-        >
+        <a target="_blank" href="https://johnmartinez.dev">
           John Martinez
         </a>
         {", "} cards by TopsyKretts
